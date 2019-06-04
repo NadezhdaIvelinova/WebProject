@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"/> 
+		<link href="css/signup.css" rel="stylesheet">
+		<title> Sign up </title>
+    </head>
+    <body>
+        <form id="signupForm" action="register.php" method="POST">
+            <div class="container">
+                    <h1>Регистрация</h1>
+                    <p>Моля попълнете тази форма, за да създадете акаунт.</p>
+                    <hr>
+                    <label ><b>Email*</b></label>
+                    <input type="text" placeholder="Въведете email" name="email" required>
+                    <label ><b>Име*</b></label>
+                    <input type="text" placeholder="Въведете име" name="name" required>
+                    <label><b>Фамилия*</b></label>
+                    <input type="text" placeholder="Въведете фамилия" name="surname" required>
+                    <label ><b>Потребителско име*</b></label>
+                    <input type="text" placeholder="Въведете потребителско име" name="username" required>
+                    <label ><b>Парола*</b></label>
+                    <input type="password" placeholder="Въведете парола" name="password" required>
+                    <label ><b>Повторете паролата*</b></label>
+                    <input type="password" placeholder="Повтори парола" name="passwordRepeat" required>
+                    <p>Моля изберете тип участие в системата</p>
+                    <input type="radio" name="type" value="student"> Студент
+                    <input type="radio" name="type" value="lector"> Преподавател
+
+                    <p>Със създаването на акаунт се съгласявате с нашите <a href="#">Terms & Privacy</a>.</p>
+                    <div class="clearfix">
+                            <button id="register" type="submit" class="signupBtn">Регистрация</button>
+                        <button type="button" class="cancelBtn"  onclick="resetForm()">Отмяна</button>                       
+                    </div>
+            </div>            
+        </form>
+        <script>
+            function resetForm() {
+                document.getElementById("signupForm").reset();
+            }            
+        </script>
+    </body>
+</html>
