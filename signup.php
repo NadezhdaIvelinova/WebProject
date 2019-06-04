@@ -1,12 +1,13 @@
 <html>
     <head>
         <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"/> 
-		<link href="css/signup.css" rel="stylesheet">
+        <link href="css/signup.css" rel="stylesheet">
+        <script src="jquery-3.4.1.js" type="text/javascript"></script>
 		<title> Sign up </title>
     </head>
     <body>
         <?php
-            if(isset($_POST['submit'])) {
+            if(isset($_POST["signup"])) {
                 session_start();
                 require("db/users.php");
                 $objUser = new users;
@@ -15,33 +16,42 @@
                 $objUser->setSurname($_POST['surname']);
                 $objUser->setUsername($_POST['username']);
                 $objUser->setPassword($_POST['password']);
-                $userData = $objUser->getUserByEmail();
-
-                if(is_array($userData) && count($userData)>0) {
-                    echo "User already register in the system";
-                    
+               
+                $value = $_POST['type'];
+                if($value == 'student') {
+                    $objUser->setType(0);
                 }
                 else {
+                    $objUser->setType(1);
+                }
+                $objUser->setLastLogin(date('Y-m-d h:i:s'));
+                $userData = $objUser->getUserByEmail();
+                if(is_array($userData) && count($userData)>0) {
+                    echo "User already registered in the system";
+                } else {
                     if($objUser->save()) {
-                        $lastId = $objUser->getId();
+                        $lastId = $objUser->dbConn->lastInsertId();
                         $objUser->setId($lastId);
                        $_SESSION['user'][$lastId] = [ 
-                           'id' => $objUser->getId(),                           
-                           'email'=> $objUser->getEmail(), 
+                           'id' => $objUser->getId(),
+                           'email'=> $objUser->getEmail(),  
                            'name' => $objUser->getName(), 
-                           'surname'=>$objUser->getSurname(), 
-                           'username'=> $objUser->getUsername(), 
-                           'password'=> $objUser->getPassword()
+                           'surname' => $objUser->getSurname(), 
+                           'username' => $objUser->getUsername(), 
+                           'password' => $objUser->getPassword(), 
+                           'type' => $objUser->getType(), 
+                           'lastLogin'=> $objUser->getLastLogin()
                        ];
-                        echo "User Registered";
-                        header("location: write.php");
+
+                        echo "User Registred..";
+                        header("location: home.php");
                     } else {
-                        echo "Failed";
+                        echo "Failed..";
                     }
                 }
             }
         ?>
-        <form id="signupForm" method="POST" role="form" action="">
+        <form id="signupForm" action="" method="post" role="form">
             <div class="container">
                     <h1>Регистрация</h1>
                     <p>Моля попълнете тази форма, за да създадете акаунт.</p>
@@ -64,17 +74,15 @@
 
                     <p>Със създаването на акаунт се съгласявате с нашите <a href="#">Terms & Privacy</a>.</p>
                     <div class="clearfix">
-                            <button name="submit" type="submit" class="signupBtn">Регистрация</button>
+                            <button type="submit" class="signupBtn" name="signup">Регистрация</button>
                         <button type="button" class="cancelBtn"  onclick="resetForm()">Отмяна</button>                       
                     </div>
             </div>            
         </form>
-        
-       
-    </body>
-    <script>
+        <script>
             function resetForm() {
                 document.getElementById("signupForm").reset();
             }            
         </script>
+    </body>
 </html>
