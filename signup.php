@@ -8,7 +8,7 @@
     <body>
         <?php
             if(isset($_POST["signup"])) {
-                session_start();
+               // session_start();
                 require("db/users.php");
                 $objUser = new users;
                 $objUser->setEmail($_POST['email']);
@@ -30,7 +30,7 @@
                     echo "User already registered in the system";
                 } else {
                     if($objUser->save()) {
-                        $lastId = $objUser->dbConn->lastInsertId();
+                       /* $lastId = $objUser->dbConn->lastInsertId();
                         $objUser->setId($lastId);
                        $_SESSION['user'][$lastId] = [ 
                            'id' => $objUser->getId(),
@@ -41,10 +41,10 @@
                            'password' => $objUser->getPassword(), 
                            'type' => $objUser->getType(), 
                            'lastLogin'=> $objUser->getLastLogin()
-                       ];
+                       ];*/
 
                         echo "User Registred..";
-                        header("location: home.php");
+                        header("location: welcome.html");
                     } else {
                         echo "Failed..";
                     }
