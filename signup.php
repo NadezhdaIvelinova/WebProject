@@ -7,49 +7,82 @@
     </head>
     <body>
         <?php
+            // define variables and set to empty values
+            $nameErr = $emailErr = $surnameErr = $passwordErr = $passwordRepeatErr = "";
+            $name = $email = $surname = $password = $passwordRepeat = "";
+            
             if(isset($_POST["signup"])) {
-               // session_start();
                 require("db/users.php");
                 $objUser = new users;
-                $objUser->setEmail($_POST['email']);
-                $objUser->setName($_POST['name']);
-                $objUser->setSurname($_POST['surname']);
-                $objUser->setUsername($_POST['username']);
-                $objUser->setPassword($_POST['password']);
-               
-                $value = $_POST['type'];
-                if($value == 'student') {
-                    $objUser->setType(0);
+                //validate the input
+                //validate the email
+                $email = test_input($_POST["email"]);
+                if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                    $emailErr = "Invalid email format";
                 }
                 else {
-                    $objUser->setType(1);
-                }
-                $objUser->setLastLogin(date('Y-m-d h:i:s'));
-                $userData = $objUser->getUserByEmail();
-                if(is_array($userData) && count($userData)>0) {
-                    echo "User already registered in the system";
-                } else {
-                    if($objUser->save()) {
-                       /* $lastId = $objUser->dbConn->lastInsertId();
-                        $objUser->setId($lastId);
-                       $_SESSION['user'][$lastId] = [ 
-                           'id' => $objUser->getId(),
-                           'email'=> $objUser->getEmail(),  
-                           'name' => $objUser->getName(), 
-                           'surname' => $objUser->getSurname(), 
-                           'username' => $objUser->getUsername(), 
-                           'password' => $objUser->getPassword(), 
-                           'type' => $objUser->getType(), 
-                           'lastLogin'=> $objUser->getLastLogin()
-                       ];*/
+                    $objUser->setEmail($_POST['email']);
+                    $name = test_input($_POST["name"]);
+                    //validate the name
+                    if(preg_match("/^[\p{Cyrillic}]+$/u", $name)) {
+                        $objUser->setName($_POST['name']);
+                        $surname = test_input($_POST["surname"]);
+                        //validate the surname
+                        if(preg_match("/^[\p{Cyrillic}]+$/u", $surname)) {
+                            $objUser->setSurname($_POST['surname']);
+                            $objUser->setUsername($_POST['username']);
 
-                        echo "User Registred..";
-                        header("location: welcome.html");
+                            //validate the password
+                            $password = test_input($_POST["password"]);
+                            if(strlen($password) < 10) {
+                                $passwordErr = "The password must be at least 10 characters long";
+                            } else {
+                                //hash the password
+                                $hash = password_hash($password, PASSWORD_DEFAULT);
+                                $objUser->setPassword($hash);
+
+                                //validate the confirm password field
+                                $passwordRepeat = test_input($_POST["passwordRepeat"]);
+                                if($password == $passwordRepeat) {
+                                    $value = $_POST['type'];
+                                    if($value == 'student') {
+                                        $objUser->setType(0);
+                                    }
+                                    else {
+                                        $objUser->setType(1);
+                                    }
+                                    $objUser->setLastLogin(date('Y-m-d h:i:s'));
+                                    $userData = $objUser->getUserByEmail();
+                                    
+                                    if(is_array($userData) && count($userData)>0) {
+                                        echo "User already registered in the system";
+                                    } else {             
+                                        if($objUser->save()) {
+                                            echo "User Registred..";
+                                            header("location: welcome.html");
+                                        } else {
+                                            echo "Failed..";
+                                        }
+                                    }
+                                } else {
+                                    $passwordRepeatErr = "The two passwords are not the same";
+                                }                                
+                            } 
+                        } else {
+                            $surnameErr = "The surname field must contain only cyrilic letters";
+                        }   
                     } else {
-                        echo "Failed..";
-                    }
-                }
+                        $nameErr = "The name filed must contain only cyrilic letters";
+                    }                    
+                }                
             }
+            function test_input($data) {
+                $data = trim($data);
+                $data = stripslashes($data);
+                $data = htmlspecialchars($data);
+                return $data;
+            }
+
         ?>
         <form id="signupForm" action="" method="post" role="form">
             <div class="container">
@@ -57,16 +90,21 @@
                     <p>Моля попълнете тази форма, за да създадете акаунт.</p>
                     <hr>
                     <label ><b>Email*</b></label>
-                    <input type="text" placeholder="Въведете email" name="email" required>
+                    <div class="error"> <?php echo $emailErr;?></div>
+                    <input type="text" placeholder="Въведете email" name="email" required>  
                     <label ><b>Име*</b></label>
+                    <div class="error"> <?php echo $nameErr;?></div>
                     <input type="text" placeholder="Въведете име" name="name" required>
                     <label><b>Фамилия*</b></label>
+                    <div class="error"> <?php echo $surnameErr;?></div>
                     <input type="text" placeholder="Въведете фамилия" name="surname" required>
                     <label ><b>Потребителско име*</b></label>
                     <input type="text" placeholder="Въведете потребителско име" name="username" required>
                     <label ><b>Парола*</b></label>
+                    <div class="error"> <?php echo $passwordErr;?></div>
                     <input type="password" placeholder="Въведете парола" name="password" required>
                     <label ><b>Повторете паролата*</b></label>
+                    <div class="error"> <?php echo $passwordRepeatErr;?></div>
                     <input type="password" placeholder="Повтори парола" name="passwordRepeat" required>
                     <p>Моля изберете тип участие в системата</p>
                     <input type="radio" name="type" value="student"> Студент

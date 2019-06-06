@@ -73,3 +73,9 @@ button {
       width: 100%;
     }
   }
+  .error {
+    color: #F54C37;
+    padding: 0px;
+    margin: 0px;
+  }
+  

@@ -32,5 +32,99 @@ body {
 
 }
 .content {
-    margin: 25px;
+    margin-top: 50px;
 }
+
+.sideInfo {
+    background-color: #303030;
+    width: 26%;
+    height: 100%;
+    position: fixed;
+}
+.userInfo {
+    padding-top: 15px;
+    display: block;
+
+    height: 90px;
+
+}
+.userInfo div, img {
+    float: left; 
+    padding: 10px;   
+
+}
+hr {
+    margin: 0px;
+    padding: 0px;
+}
+.userInfo div {
+    padding-top: 45px;
+}
+
+.sessionNames {
+    display: block;
+    float: none;
+    color: white;
+   
+}
+h3 {
+    margin: 0px;
+}
+#users {
+    color: #18A89E;
+    font-weight: normal;
+    text-align: center;
+}
+
+.messages {
+    position: fixed;
+    width: 74%;
+    right: 0px;
+   
+}
+
+textarea {
+    width: 80%;
+    height: 80px;
+    resize: none;
+    font-size: 18px;
+    margin: 20px;
+
+}
+
+#send {
+    background-color: #F54C37;
+    color: white;
+    font-size: 20px;
+    border: 0px;
+    border-radius: 2px;
+    margin: 10px 20px;
+    padding: 10px;
+    width: 30%;
+}
+
+.messages th {
+    color: #18A89E;
+    padding: 10px 20px;
+    font-size: 24px;
+    font-weight: normal;
+}
+
+td {
+    color: white;
+    padding: 2px 15px;
+}
+
+#logout {
+    background-color: #303030;
+    color: white;
+    text-align: center;
+    padding: 14px 20px;
+    font-size: 20px;
+    border: 0px;
+    cursor: pointer;
+}
+
+
+
+

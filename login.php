@@ -13,7 +13,7 @@
 				$objUser = new users;
 				$objUser->setEmail($_POST['email']);
 				$objUser->setPassword($_POST['password']);
-			 	$objUser->setLastLogin(date('Y-m-d h:i:s'));
+                 $objUser->setLastLogin(date('Y-m-d h:i:s'));
 			 	$userData = $objUser->getUserByEmail();
 			 	if(is_array($userData) && count($userData)>0) {
 			 		$objUser->setId($userData['id']);
@@ -27,7 +27,9 @@
 			 	} else {
 				 	echo "Invalid information.";
 				 }
-			}
+            }
+            
+            
         ?>
         <form id="loginForm"action="" role="form" method="post">
             <div class="container">

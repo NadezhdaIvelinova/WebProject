@@ -7,22 +7,23 @@
         <title>Home</title>
     </head>
     <body>
+                <?php
+                    session_start();
+                    foreach ($_SESSION['user'] as $key => $user) {    
+                        $userId = $key;
+                            $name = $user['name'];
+                            $surname = $user['surname'];
+                    }   
+                  ?>
         <div class="navbar">
-                    <a href="home.html" class="active"><i class="fa fa-fw fa-home"></i> Home</a>
-                    <a href="faq.html"><i class="fa fa-fw fa-question"></i> Често задавани въпроси</a>
+                    <a href="home.php" class="active"><i class="fa fa-fw fa-home"></i> Home</a>
+                    <a href="faq.php"><i class="fa fa-fw fa-question"></i> Често задавани въпроси</a>
                     <a href="#lectors"><i class="fa fa-fw fa-graduation-cap"></i> Лектори</a>
-                    <a href="message.html"><i class="fa fa-fw fa-envelope"></i> Напиши съобщение</a>
-                    <a href="#myProfile"><i class="fa fa-fw fa-user"></i> Моят профил</a> 
-                    <?php
-                        session_start();
-                        foreach ($_SESSION['user'] as $key => $user) {
-                            $userId = $key;
-                            echo '<input type="hidden" name="userId" id="userId" value="'.$key.'">';
-                            echo "<h4>".$user['name']."</h4>";
-                            echo "<h4>".$user['surname']."</h4>";
-                        }
-                    ?>
-                   
+                    <a href="message.php"><i class="fa fa-fw fa-envelope"></i> Напиши съобщение</a>
+                    <a href="#myProfile"><i class="fa fa-fw fa-user"></i> Моят профил</a>
+                    <p class="user"><?php echo $name; ?></p>
+                    <p class="user"><?php echo $surname; ?></p>                 
+                          
         </div>
         <div id="header">
                 <img src="image/background.png" width="530px" height="250px">
@@ -53,6 +54,7 @@
            
             
         </div>
+               
     </body>
     <script>
         function changeTextToFAQ() {

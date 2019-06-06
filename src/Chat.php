@@ -3,6 +3,7 @@ namespace MyApp;
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
 require "../db/users.php";
+//require "../db/chatrooms.php";
 class Chat implements MessageComponentInterface {
     protected $clients;
 
@@ -22,18 +23,23 @@ class Chat implements MessageComponentInterface {
         $numRecv = count($this->clients) - 1;
         echo sprintf('Connection %d sending message "%s" to %d other connection%s' . "\n"
             , $from->resourceId, $msg, $numRecv, $numRecv == 1 ? '' : 's');
+        $data = json_decode($msg, true);
+        //$objChatroom = new \chatrooms;
+        //$objChatroom->setUserId($data['userId']);
+        //$objChatroom->setMsg($data['msg']);
+        //$objChatroom->setCreatedOn(date("Y-m-d h:i:s"));
+        //if($objChatroom->saveChatRoom()) {
+          //  $objUser = new \users;
+          //  $objUser->setId($data['userId']);
+          //  $user = $objUser->getUserById();
+          //  $data['from'] = $user['name'];
+         //   $data['msg']  = $data['msg'];
+          //  $data['dt']  = date("d-m-Y h:i:s");
+       // }
 
-            $data = json_decode($msg, true);
-            $objUser = new \users; //we are in te namespace so if we want to create an object of any class we have to use slash
-            $objUser->setId($data['userId']);
-            $user = $objUser->getUserById();
-            $data['from'] = $user['name'];
-            $data['msg'] = $data['msg'];
-            $data['dt'] = date("d-m-Y h:i:s");
-            foreach ($this->clients as $client) {
+        foreach ($this->clients as $client) {
             if ($from !== $client) {
-                // The sender is not the receiver, send to each client connected
-                $client->send(json_encode($data));
+                $client->send($msg);
             }
         }
     }
