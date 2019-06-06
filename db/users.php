@@ -68,5 +68,52 @@
 			}
 			return $user;
         }
+
+       public function getUserById() {
+           $stmt = $this->dbConn->prepare('SELECT * FROM users WHERE id = :id');
+            $stmt->bindParam(':id', $this->id);
+            try {
+                if($stmt->execute()) {
+                    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+                }
+            } catch (Exception $exception) {
+                $exception->getMessage();
+            }
+       }
+
+        public function getUserByUsername () {
+            $stmt = $this->dbConn->prepare('SELECT * FROM users WHERE username = :username');
+			$stmt->bindParam(':username', $this->username);
+			try {
+				if($stmt->execute()) {
+					$user = $stmt->fetch(PDO::FETCH_ASSOC);
+				}
+			} catch (Exception $exception) {
+				echo $exception->getMessage();
+			}
+			return $user;
+        }
+
+        public function updateLoginStatus() {
+			$stmt = $this->dbConn->prepare('UPDATE users SET lastLogin = :lastLogin WHERE id = :id');
+			$stmt->bindParam(':lastLogin', $this->lastLogin);
+			$stmt->bindParam(':id', $this->id);
+			try {
+				if($stmt->execute()) {
+					return true;
+				} else {
+					return false;
+				}
+			} catch (Exception $exception) {
+				echo $exception->getMessage();
+			}
+        }
+        
+        public function getAllUsers() {
+			$stmt = $this->dbConn->prepare("SELECT * FROM users");
+			$stmt->execute();
+			$users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+			return $users;
+		}
     }
 ?>

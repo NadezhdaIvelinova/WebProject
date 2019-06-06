@@ -80,11 +80,12 @@ h3 {
     position: fixed;
     width: 74%;
     right: 0px;
+    padding-top: 0px;
    
 }
 
 textarea {
-    width: 80%;
+    width: 84.5%;
     height: 80px;
     resize: none;
     font-size: 18px;
@@ -100,29 +101,32 @@ textarea {
     border-radius: 2px;
     margin: 10px 20px;
     padding: 10px;
-    width: 30%;
+    width: 85%;
 }
 
 .messages th {
-    color: #18A89E;
+    color: #303030;
     padding: 10px 20px;
     font-size: 24px;
     font-weight: normal;
 }
 
-td {
+.users td {
     color: white;
     padding: 2px 15px;
 }
 
-#logout {
-    background-color: #303030;
-    color: white;
-    text-align: center;
-    padding: 14px 20px;
-    font-size: 20px;
-    border: 0px;
-    cursor: pointer;
+
+#chats {
+    border: 2px solid #303030;
+    width: 85%;
+    height: 280px;
+    margin-left: 20px;
+
+}
+
+#chats thead {
+    height: 10px;
 }
 
 

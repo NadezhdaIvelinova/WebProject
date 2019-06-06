@@ -69,11 +69,10 @@
                 <table id="chats" class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Chat Room</th>
-                        </tr>
+					      <th colspan="4" scope="col"><strong>Съобщения</strong></th>
+					    </tr>
                     </thead>
                     <tbody>
-                                
                     </tbody>
                 </table>
                 <form method="post" action="">
@@ -81,8 +80,7 @@
                             <textarea  id="msg" name="msg" placeholder="Enter Message"></textarea>
                         </div>
                         <div>
-                            <input type="button" value="Изпрати" id="send" name="send">
-                            <input type="button" value="Изход" id="logout" name="logout">
+                            <input type="button" value="Изпрати" id="send" name="send">                            
                         </div>
                 </form>
             </div>
@@ -97,6 +95,9 @@
             };
             conn.onmessage = function(e) {
                 console.log(e.data);
+                var data = JSON.parse(e.data);
+                var row = '<tr><td valign="top"><div><strong>' + data.from +'</strong></div><div>'+data.msg+'</div><td align="right" valign="top">'+data.dt+'</td></tr>';
+		        $('#chats > tbody').prepend(row);
             };
 
             $("#send").click(function() {

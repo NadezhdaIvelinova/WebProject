@@ -29,18 +29,18 @@ class Chat implements MessageComponentInterface {
         //$objChatroom->setMsg($data['msg']);
         //$objChatroom->setCreatedOn(date("Y-m-d h:i:s"));
         //if($objChatroom->saveChatRoom()) {
-          //  $objUser = new \users;
-          //  $objUser->setId($data['userId']);
-          //  $user = $objUser->getUserById();
-          //  $data['from'] = $user['name'];
-         //   $data['msg']  = $data['msg'];
-          //  $data['dt']  = date("d-m-Y h:i:s");
+            $objUser = new \users;
+            $objUser->setId($data['userId']);
+            $user = $objUser->getUserById();
+            $data['from'] = $user['name'];//name null - check that!
+            $data['msg']  = $data['msg'];
+            $data['dt']  = date("d-m-Y h:i:s");
        // }
 
         foreach ($this->clients as $client) {
-            if ($from !== $client) {
-                $client->send($msg);
-            }
+            //if ($from !== $client) {
+                $client->send(json_encode($data));
+            //}
         }
     }
 
