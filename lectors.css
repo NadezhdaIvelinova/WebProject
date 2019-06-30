@@ -1,0 +1,88 @@
+body {
+    background-color: white;
+    margin: 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.navbar {
+    overflow: hidden;
+    position: fixed;
+    background-color:  #303030;
+    top: 0;
+    width: 100%;
+    height: 50px;
+}
+
+.navbar a {
+    float: left;
+    color: white;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+    font-size: 20px;
+}
+.navbar a:hover {
+    background-color:#F54C37;
+    color: white;
+}
+
+.navbar a.active {
+    background-color: #F54C37;
+    color: white;
+
+}
+.content {
+    padding: 30px;
+    margin-top: 30px;
+}
+
+.user {
+    color: #303030;
+    font-size: 18px;
+    margin: 0px 10px;
+    padding: 0px;
+    font-weight: normal;
+    text-align: right;
+}
+
+.lector {
+    display: block;
+}
+.text h2 {
+    font-size: 20px;
+    color: #303030;
+}
+.lector .imgAndBtn, .text {
+    float: left;
+    margin: 0px 10px;
+    padding: 0px;
+}
+.imgAndBtn {
+    width: 120px;
+}
+img {
+    margin-left: 10px;
+}
+#write {
+    border: 0px;
+    background-color: #F54C37;
+    color: white;
+    padding: 8px;
+    cursor: pointer;
+    font-size: 20px;
+    margin-left: 0px;
+    margin-top: 10px;
+}
+
+h3 {
+    margin-top: 0px;
+    padding-top: 0px;
+    color: #303030;
+    font-size: 18px;
+    font-weight: normal;
+}
+
+.lectors {
+    width: 800px;
+    margin: 30px 15px;
+}

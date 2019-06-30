@@ -9,28 +9,67 @@
     <body>
         <?php
                 session_start();
+                if(!isset($_SESSION['user'])) {
+                    header("location: index.html");
+                }
                 foreach ($_SESSION['user'] as $key => $user) {    
                     $userId = $key;
                     $name = $user['name'];
                     $surname = $user['surname'];
-                }   
+                }  
+
+                require("db/questions.php");
+                $objQuestion = new questions;
+                $appQuestions = $objQuestion->getAllApplicationQuestions();
+                $examQuestions = $objQuestion->getAllExamQuestions();
+                $schoolarshipQuestions = $objQuestion->getAllSchoolarshipQuestions();
         ?>
         <div class="navbar">
                     <a href="home.php"><i class="fa fa-fw fa-home"></i> Home</a>
                     <a class="active" href="faq.php"><i class="fa fa-fw fa-question"></i> Често задавани въпроси</a>
-                    <a href="#lectors"><i class="fa fa-fw fa-graduation-cap"></i> Лектори</a>
+                    <a href="lectors.php"><i class="fa fa-fw fa-graduation-cap"></i> Лектори</a>
                     <a href="message.php"><i class="fa fa-fw fa-envelope"></i> Напиши съобщение</a>
-                    <a href="#myProfile"><i class="fa fa-fw fa-user"></i> Моят профил</a>
-                    <p class="user"><?php echo $name; ?></p>
-                    <p class="user"><?php echo $surname; ?></p>       
+                    <a href="myProfile.php"><i class="fa fa-fw fa-user"></i> Моят профил</a>
+                    <a href="logout.php">Изход</a>  
+                      
                    
         </div>
+        
         <div class="content">
-            <h3>Въпроси свързани с кандидатстване</h3>
-            <hr>
-            <div class="questions" id="quest1">
-                <h3 class="headerQuestions">Какви са условията за кандидатстване?</h3>
+        <p class="user"><?php echo $name; echo " "; echo $surname;?></p>
+            <h3>Кандидатстване</h3>
+            <div class="application">
+                <?php
+                    foreach($appQuestions as $appQuestion) {
+                        echo "<span>".$appQuestion['name']."</span>";
+                        echo "<br>";
+                        echo "<p>".$appQuestion['answer']."</p>";                      
+                    }
+                ?>
             </div>
+            <hr>
+            <h3>Изпити</h3>
+            <div class="exam">
+                <?php
+                    foreach($examQuestions as $examQuestion) {
+                        echo "<span>".$examQuestion['name']."</span>";
+                        echo "<br>";
+                        echo "<p>".$examQuestion['answer']."</p>";                      
+                    }
+                ?>
+            </div>
+            <hr>
+            <h3>Стипендии</h3>
+            <div class="schoolarship">
+                <?php
+                    foreach($schoolarshipQuestions as $schoolarshipQuestion) {
+                        echo "<span>".$schoolarshipQuestion['name']."</span>";
+                        echo "<br>";
+                        echo "<p>".$schoolarshipQuestion['answer']."</p>";                      
+                    }
+                ?>
+            </div>
+            <hr>
         </div>
     </body>
 </html>

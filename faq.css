@@ -1,0 +1,54 @@
+body {
+    background-color: white;
+    margin: 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.navbar {
+    overflow: hidden;
+    position: fixed;
+    background-color:  #303030;
+    top: 0;
+    width: 100%;
+    height: 50px;
+}
+
+.navbar a {
+    float: left;
+    color: white;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+    font-size: 20px;
+}
+.navbar a:hover {
+    background-color:#F54C37;
+    color: white;
+}
+
+.navbar a.active {
+    background-color: #F54C37;
+    color: white;
+
+}
+.content {
+    padding: 30px;
+    margin-top: 30px;
+}
+
+h3 {
+    font-size: 20px;
+    color: #F54C37;
+    font-weight: bold;
+}
+span {
+    font-weight: bold;
+}
+.user {
+    color: #303030;
+    font-size: 18px;
+    margin: 0px 10px;
+    padding: 0px;
+    font-weight: normal;
+    text-align: right;
+}

@@ -1,0 +1,111 @@
+body {
+    background-color: white;
+    margin: 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.navbar {
+    overflow: hidden;
+    position: fixed;
+    background-color: #303030;
+    top: 0;
+    width: 100%;
+    height: 50px;
+}
+
+.navbar a {
+    float: left;
+    color: white;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+    font-size: 20px;
+}
+.navbar a:hover {
+    background-color:#F54C37;
+    color: white;
+}
+
+.navbar a.active {
+    background-color: #F54C37;
+    color: white;
+
+}
+#header {
+    width: 100%;
+    background-color:#18A89E;
+    margin-top: 50px;
+    display: block;
+}
+#header img, div{
+    float: left;
+}
+.content {
+    margin: 25px;
+}
+.buttons {
+    display: block;
+    width: 750px;
+    position: relative; left: 50%;
+    transform: translateX(-50%);
+}
+.buttons div {
+    float: left;
+    width: 170px;
+    margin: 15px 40px;
+   
+    
+}
+.text {
+    height: 150px;
+}
+.text h3 {
+    color: #F54C37;
+    font-weight: normal;
+    text-align: center;
+    font-size: 24px;
+    margin: 5px;
+}
+.descriptions {
+    text-align: center;
+    color: #F54C37;
+    font-weight: normal;
+    margin: 0px;
+}
+#btnFaq {
+    background: url("image/faq.png");
+    width: 191px;
+    height: 192px;
+}
+h1 {
+    color: #F54C37;
+    font-size: 56px;
+    margin-bottom: 0px;
+    font-weight: normal;
+}
+#headingText h2 {
+    font-size: 22px;
+    font-weight: normal;
+    color: white;
+}
+p {
+    text-align: justify;
+    font-size: 18px;
+}
+
+h4 {
+    color: black;
+    margin: 0px 15px;
+    text-align: right;
+    font-weight: normal;
+    font-size: 18px;    
+
+}
+.user {
+    color: #303030;
+    font-size: 18px;
+    margin: 2px 10px;
+    padding: 0px;
+    font-weight: normal;
+    text-align: right;
+}

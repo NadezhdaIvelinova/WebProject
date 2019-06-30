@@ -1,0 +1,144 @@
+body {
+    background-color: white;
+    margin: 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.navbar {
+    overflow: hidden;
+    position: fixed;
+    background-color: #303030;
+    top: 0;
+    width: 100%;
+    height: 50px;
+}
+
+.navbar a {
+    float: left;
+    color: white;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+    font-size: 20px;
+}
+.navbar a:hover {
+    background-color:#F54C37;
+    color: white;
+}
+
+.navbar a.active {
+    background-color: #F54C37;
+    color: white;
+
+}
+.content {
+    margin-top: 50px;
+}
+
+.sideInfo {
+    background-color: #303030;
+    width: 26%;
+    height: 100%;
+    position: fixed;
+}
+.userInfo {
+    padding-top: 15px;
+    display: block;
+
+    height: 90px;
+
+}
+.userInfo div, img {
+    float: left; 
+    padding: 10px;   
+
+}
+hr {
+    margin: 0px;
+    padding: 0px;
+}
+.userInfo div {
+    padding-top: 45px;
+}
+
+.sessionNames {
+    display: block;
+    float: none;
+    color: white;
+   
+}
+h3 {
+    margin: 0px;
+}
+h2 {
+    color: #18A89E;
+    font-weight: normal;
+    text-align: center;
+}
+
+.messages {
+    position: fixed;
+    width: 74%;
+    right: 0px;
+    padding-top: 0px;
+   
+}
+
+textarea {
+    width: 84.5%;
+    height: 80px;
+    resize: none;
+    font-size: 18px;
+    margin: 20px;
+
+}
+
+#send {
+    background-color: #F54C37;
+    color: white;
+    font-size: 20px;
+    border: 0px;
+    border-radius: 2px;
+    margin: 10px 20px;
+    padding: 10px;
+    width: 85%;
+}
+
+.messages th {
+    color: #303030;
+    padding: 10px 20px;
+    font-size: 24px;
+    font-weight: normal;
+}
+
+.users td {
+    color: white;
+    padding: 2px 15px;
+}
+
+
+#chats {
+    border: 1px solid #303030;
+    width: 85%;
+    height: 280px;
+    margin-left: 20px;
+
+}
+
+#chats thead {
+    height: 10px;
+}
+
+#logout {
+    background: #303030;
+    border: 0px;
+    color: white;
+    text-align: center;
+    padding: 14px 20px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+
+
+

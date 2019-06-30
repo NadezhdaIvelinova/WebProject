@@ -14,20 +14,23 @@
                 header("location: index.html");
             }
             require("db/users.php");
-            //require("db/chatrooms.php");
+            require("db/chatrooms.php");
 
-           // $objChatroom = new chatrooms;
-            //$chatrooms   = $objChatroom->getAllChatRooms();
+            $objChatroom = new chatrooms;
+            $chatrooms   = $objChatroom->getAllChatRooms();
 
             $objUser = new users;
             $users   = $objUser->getAllUsers();
+            $lectors = $objUser->getLectors();
+            $students = $objUser->getStudents();
         ?>
         <div class="navbar">
                     <a href="home.php" ><i class="fa fa-fw fa-home"></i> Home</a>
                     <a href="faq.php"><i class="fa fa-fw fa-question"></i> Често задавани въпроси</a>
-                    <a href="#lectors"><i class="fa fa-fw fa-graduation-cap"></i> Лектори</a>
+                    <a href="lectors.php"><i class="fa fa-fw fa-graduation-cap"></i> Лектори</a>
                     <a href="message.php" class="active"><i class="fa fa-fw fa-envelope"></i> Напиши съобщение</a>
-                    <a href="#myProfile"><i class="fa fa-fw fa-user"></i> Моят профил</a>     
+                    <a href="myProfile.php"><i class="fa fa-fw fa-user"></i> Моят профил</a>
+                    <input type="button" id="logout" name="logout" value="Изход">     
                  
         </div>
        
@@ -49,18 +52,39 @@
 
                 </div>
                 <div class="users">
-                    <h2 id="users">Потребители</h2>
+                    <?php
+                        $heading = "Лектори";
+                        if($user['type'] != 0) {
+                            $heading = "Студенти";
+                        }
+                        echo "<h2>".$heading."</h2>";
+                    ?>
                     <table>
                         <?php
-                                //make that ony for lectors   
-                              foreach ($users as $key => $user) {                                   
-                                if(!isset($_SESSION['user'][$user['id']])) {   
-                                        
-                                            echo "<tr><td>".$user['name']."</td>";
-                                            echo "<td>".$user['lastLogin']."</td></tr>";
-                                                                                                                                                        
+                             if($user['type'] == 0) {
+                                foreach ($lectors as $key => $user) {                                   
+                                    if(!isset($_SESSION['user'][$user['id']])) {   
+                                            
+                                                echo "<tr><td>".$user['name']."</td>";
+                                                echo "<td>".$user['lastLogin']."</td></tr>";
+                                                                                                                                                            
+                                       }
+                                      
                                    }
-                               }
+                             } else {
+                                foreach ($students as $key => $user) {                                   
+                                    if(!isset($_SESSION['user'][$user['id']])) {   
+                                            
+                                                echo "<tr><td>".$user['name']."</td>";
+                                                echo "<td>".$user['lastLogin']."</td></tr>";
+                                                                                                                                                            
+                                       }
+                                      
+                                   }
+                             }
+                                
+                            
+                             
                         ?>
                     </table>
                 </div>
@@ -73,11 +97,22 @@
 					    </tr>
                     </thead>
                     <tbody>
+                        <?php
+                           foreach ($chatrooms as $key => $chatroom) {
+
+                            if($userId == $chatroom['userId']) {
+                                $from = "Me";
+                            } else {
+                                $from = $chatroom['name'];
+                            }
+                            echo '<tr><td valign="top"><div><strong>'.$from.'</strong></div><div>'.$chatroom['msg'].'</div><td align="right" valign="top">'.date("d/m/Y h:i:s A", strtotime($chatroom['created_on'])).'</td></tr>';
+                        }
+                        ?>
                     </tbody>
                 </table>
                 <form method="post" action="">
                         <div >
-                            <textarea  id="msg" name="msg" placeholder="Enter Message"></textarea>
+                            <textarea  id="msg" name="msg" placeholder="Въведи съобщение"></textarea>
                         </div>
                         <div>
                             <input type="button" value="Изпрати" id="send" name="send">                            
@@ -100,6 +135,10 @@
 		        $('#chats > tbody').prepend(row);
             };
 
+            conn.onclose = function(e) {
+                console.log("Connection closed");
+            };
+
             $("#send").click(function() {
                 var userId = $('#userId').val();
                 var msg = $("#msg").val();
@@ -108,6 +147,19 @@
                     msg: msg
                 };
                 conn.send(JSON.stringify(data));
+                $("#msg").val(""); //clear message when send it
+            });
+
+            $("#logout").click(function(){
+                $.ajax({
+                    url:"action.php",
+                    method:"post",
+                    data: "userId="+userId+"&action=leave"
+                }).done(function(result){
+                    conn.close();
+                    console.log(result);
+                });
+                
             })
         })
     </script>
